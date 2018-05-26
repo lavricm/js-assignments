@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -201,7 +201,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    var first='┌'+'─'.repeat(width-2)+'┐\n';
+    var line= '│'+' '.repeat(width-2)+'│\n';
+    var lines=line.repeat(height-2);
+    var last='└'+'─'.repeat(width-2)+'┘\n';
+    return first+lines+last;
 }
 
 
@@ -221,7 +225,14 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    const ll='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const sub='NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    let card='';
+    for(let i=0; i<str.length; i++){
+        if(ll.indexOf(str[i])===-1) card=card+str[i];
+        else card=card+sub[ll.indexOf(str[i])];
+    }
+    return card;
 }
 
 /**
@@ -238,7 +249,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return (typeof value == 'string' || value instanceof String);
 }
 
 
@@ -267,7 +278,17 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+    let ans=0; 
+    if(value.slice(0, value.length-1)==='A') ans+=0;
+    else if(value.slice(0, value.length-1)==='J') ans+=10;
+    else if(value.slice(0, value.length-1)==='Q') ans+=11;
+    else if(value.slice(0, value.length-1)==='K') ans+=12;
+    else ans+=Number(value.slice(0, value.length-1))-1;
+    if(value[value.length-1]==='♦') ans=ans+13;
+    else if(value[value.length-1]==='♥') ans=ans+26;
+    else if(value[value.length-1]==='♠') ans=ans+39;
+    return ans;
 }
 
 
