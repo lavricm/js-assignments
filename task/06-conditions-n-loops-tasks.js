@@ -30,7 +30,16 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    let x=num%3;
+    let y=num%5;
+    if(x!=0 && y!=0) return num;
+    else  if(x===0 && y!=0) return 'Fizz';
+    else  if(x!=0 && y===0) return 'Buzz';
+    else  if(x===0 && y===0) return 'FizzBuzz';
+    let s='';
+    if(num%3===0) s+='Fizz';
+    if(num%5===0) s+='Buzz';
+    if(s==='') return num; else return s;
 }
 
 
@@ -46,7 +55,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let ans=1;
+    for(let i=1; i<=n; i++){
+        ans=ans*i;
+    }
+    return ans;
 }
 
 
@@ -63,7 +76,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    return (n2*(n2+1)/2-n1*(n1-1)/2);
 }
 
 
@@ -82,7 +95,9 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+    let mx=Math.max(a, b, c);
+    let mn=Math.min(a+b, b+c, c+a);
+    if(mx>=mn) return false; else return true;
 }
 
 
@@ -150,7 +165,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    let x1=circle.center.x, y1=circle.center.y, x2=point.x, y2=point.y;
+    if(Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))<circle.radius) return true;
+    return false;
 }
 
 
@@ -192,7 +209,11 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let cd='';
+    if(isStartIncluded) cd=cd+'['; else cd=cd+'(';
+    cd=cd+`${Math.min(a,b)}, ${Math.max(a,b)}`;
+    if(isEndIncluded) cd+=']'; else cd+=')';
+    return cd;
 }
 
 
@@ -209,9 +230,12 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    let cd='';
+    for(let i=str.length-1; i>=0; i--){
+        cd=cd+str[i];
+    }
+    return cd;
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -226,7 +250,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    let i=1;
+    let ans=0;
+    while(Math.pow(10, i)<num) i++;
+    for(let j=0; j<i; j++){
+        ans=ans+((Math.floor(num/Math.pow(10, i-j-1)))%10)*Math.pow(10, j);
+    } return ans;
 }
 
 
@@ -252,6 +281,16 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     throw new Error('Not implemented');
+    let p=-1, ans=0;
+    while(ccn!=0){
+        let i=ccn%10;
+        p++;
+        if(p%2!=0) i=(i*2)%9;
+        ans+=i;
+        ccn=Math.floor(ccn/10);
+    }
+    if(ans%10===0) return true;
+    return false;
 }
 
 
@@ -270,7 +309,8 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    if(num%9===0) return 9;
+    else return num%9;
 }
 
 
@@ -297,6 +337,20 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
     throw new Error('Not implemented');
+    let a=0, b=0, c=0, d=0;
+    for(let i=0; i<str.length; i++){
+        if(str[i]==='(') a++;
+        if(str[i]==='(') a--;
+        if(str[i]==='[') b++;
+        if(str[i]===']') b--;
+        if(str[i]==='{') c++;
+        if(str[i]==='}') c--;
+        if(str[i]==='<') d++;
+        if(str[i]==='>') d--;
+        if(a<0 || b<0 || c<0 || d<0) return false;
+    }
+    if(a!=0 || b!=0 || c!=0 || d!=0) return false;
+    return true;
 }
 
 
@@ -332,9 +386,20 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let n= new Date(endDate-startDate).getTime(); n*=1000; n--; n/=1000000;
+    //cheating the round function and turning n(miliseconds) into seconds to write the conditions easier
+    if(n<=45) return 'a few seconds ago';
+    else if(n<=90) return 'a minute ago'; 
+    else if(n<=45*60) return `${Math.round(n/60)} minutes ago`;
+    else if(n<=90*60) return 'an hour ago';
+    else if(n<=22*60*60) return `${Math.round(n/(60*60))} hours ago`;
+    else if(n<=36*60*60) return 'a day ago';
+    else if(n<=25*24*60*60) return `${Math.round(n/(24*60*60))} days ago`;
+    else if(n<=45*24*60*60) return 'a month ago';
+    else if(n<=345*24*60*60) return `${Math.round(n/(30*24*60*60))} months ago`;
+    else if(n<=545*24*60*60) return 'a year ago';
+    else return `${Math.round(n/(365*24*60*60))} years ago`;
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
