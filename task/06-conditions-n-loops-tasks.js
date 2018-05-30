@@ -183,7 +183,16 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    let ans;
+    let arr=Array(1000);
+    arr.fill(0);
+    for(let i=0; i<str.length; i++){
+        arr[str.charCodeAt(i)-'a'.charCodeAt(0)]++;
+    }
+    for(let i=0; i<str.length; i++){
+        if(arr[str.charCodeAt(i)-'a'.charCodeAt(0)]===1 && str[i]!=' ') return str[i];
+    }  
+    return ans;
 }
 
 
@@ -421,7 +430,12 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    let s=``;
+    while(num!=0){
+        s=`${num%n}`+s;
+        num=Math.floor(num/n);
+    }
+    return s;
 }
 
 
