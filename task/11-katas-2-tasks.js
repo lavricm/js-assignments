@@ -34,7 +34,23 @@
  *
  */
 function parseBankAccount(bankAccount) {
-    throw new Error('Not implemented');
+    let xd=bankAccount;
+    let p=0, s=bankAccount.length/3;
+    let st=''; 
+    while(p<s){
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='| |' && xd.slice(p+2*s, p+2*s+3)==='|_|') st=st+`${0}`;
+        if(xd.slice(p, p+3)==='   ' && xd.slice(p+s, p+s+3)==='  |' && xd.slice(p+2*s, p+2*s+3)==='  |') st=st+`${1}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)===' _|' && xd.slice(p+2*s, p+2*s+3)==='|_ ') st=st+`${2}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)===' _|' && xd.slice(p+2*s, p+2*s+3)===' _|') st=st+`${3}`;
+        if(xd.slice(p, p+3)==='   ' && xd.slice(p+s, p+s+3)==='|_|' && xd.slice(p+2*s, p+2*s+3)==='  |') st=st+`${4}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='|_ ' && xd.slice(p+2*s, p+2*s+3)===' _|') st=st+`${5}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='|_ ' && xd.slice(p+2*s, p+2*s+3)==='|_|') st=st+`${6}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='  |' && xd.slice(p+2*s, p+2*s+3)==='  |') st=st+`${7}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='|_|' && xd.slice(p+2*s, p+2*s+3)==='|_|') st=st+`${8}`;
+        if(xd.slice(p, p+3)===' _ ' && xd.slice(p+s, p+s+3)==='|_|' && xd.slice(p+2*s, p+2*s+3)===' _|') st=st+`${9}`;
+        p+=3;
+    }
+    return st;
 }
 
 
