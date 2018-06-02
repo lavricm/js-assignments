@@ -138,6 +138,24 @@ function canDominoesMakeRow(dominoes) {
  */
 function extractRanges(nums) {
     throw new Error('Not implemented');
+    let ctrl=0, l=0, p=-90, s='';
+    for(let i=0; i<nums.length; i++){
+        if(p+1===nums[i] && i===nums.length-1 && ctrl>1) s=s+`${nums[l]}-${nums[nums.length-1]},`;
+        if(p+1===nums[i]){ ctrl++;}
+        else{
+            if(ctrl<2){
+                for(let j=0; j<=ctrl; j++){s=s+`${nums[l+j]},`;}
+                l=i;
+            }
+            else {
+                s=s+`${nums[l]}-${nums[i-1]},`
+                l=i;
+            }
+            ctrl=0;
+        }
+        p=nums[i];
+    }
+    return s.slice(0, s.length-1);
 }
 
 module.exports = {
