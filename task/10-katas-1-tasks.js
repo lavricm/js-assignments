@@ -88,7 +88,28 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    let i=0, j=0, ok=0;
+    let arr=Array(n).fill(Array(n).fill(0));
+    for(let s=0; s<=2*(n-1); s++){
+        if(s%2===0){
+            i=Math.min(s, n-1);
+            j=s-i;
+            while(i>=0 && i<n && j>=0 && j<n){
+                arr[i][j]=ok; ok++;
+                i--; 
+                j++;
+            }
+        }
+        else{
+            j=Math.min(s, n-1);
+            i=s-j;
+            while(i>=0 && i<n && j>=0 && j<n){
+                arr[i][j]=ok; ok++;
+                i++; 
+                j--;
+            }
+        }
+    } return arr;
 }
 
 
@@ -138,24 +159,6 @@ function canDominoesMakeRow(dominoes) {
  */
 function extractRanges(nums) {
     throw new Error('Not implemented');
-    let ctrl=0, l=0, p=-90, s='';
-    for(let i=0; i<nums.length; i++){
-        if(p+1===nums[i] && i===nums.length-1 && ctrl>1) s=s+`${nums[l]}-${nums[nums.length-1]},`;
-        if(p+1===nums[i]){ ctrl++;}
-        else{
-            if(ctrl<2){
-                for(let j=0; j<=ctrl; j++){s=s+`${nums[l+j]},`;}
-                l=i;
-            }
-            else {
-                s=s+`${nums[l]}-${nums[i-1]},`
-                l=i;
-            }
-            ctrl=0;
-        }
-        p=nums[i];
-    }
-    return s.slice(0, s.length-1);
 }
 
 module.exports = {
