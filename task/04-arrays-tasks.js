@@ -293,7 +293,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   throw new Error('Not implemented');
+   return arr.sort((a,b)=>(b-a)).slice(0, 3);
 }
  
  
@@ -462,11 +462,12 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-    throw new Error('Not implemented');
-   let arr=Array(n);
-   let ar0=Array(n).fill(0);
-   arr.fill(ar0);
-   return arr.map(function(v, i){v[i]=2; return v});
+    return new Array(n).fill([]).map((v, i)=>{
+        let xd=new Array(n).fill(0);
+        xd[i]=1;
+        return xd;
+    })
+   return (Array(n).fill(Array(n).fill(0))).map((v, i)=>{v[i]=1;});
 }
 
 /**
@@ -500,9 +501,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
-    throw new Error('Not implemented');
-   ar=Array(0);
-   a0=arr.map() 
+    return arr.filter((v, i)=>(arr.indexOf(v)===i));
 }
 
 /**
@@ -536,7 +535,8 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+    return array.reduce((prev, curr) => 
+    prev.set(keySelector(curr), array.filter(elem => keySelector(curr) == keySelector(elem)).map(valueSelector)), new Map())
 }
 
 
@@ -552,7 +552,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    return arr.map(childrenSelector).reduce((p, c)=>(p.concat(c)), []);
 }
 
 
@@ -569,7 +569,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    return indexes.reduce((p, c)=>(p[c]), arr);
 }
 
 
@@ -592,7 +592,8 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+let s=arr.length;
+   return s%2===0 ? arr.slice(s/2).concat(arr.slice(0, s/2)) : arr.slice((s+1)/2).concat([arr[(s-1)/2]]).concat(arr.slice(0, (s-1)/2));
 }
 
 
