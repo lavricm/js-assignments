@@ -79,7 +79,23 @@ function parseBankAccount(bankAccount) {
  *                                                                                                'characters.'
  */
 function* wrapText(text, columns) {
-    throw new Error('Not implemented');
+    let arr=text.split(' ');
+    let s=0, l=0;
+    for(let i=0; i<arr.length; ){
+        s=0;
+        l=i;
+        while(i<arr.length && s+(arr[i]).length<=columns){
+            s+=(arr[i]).length+1;
+            i++;
+        }
+        s--;
+        let ar='';
+        for(l; l<i; l++){
+            ar=ar+' '+arr[l];
+        }
+        yield ar.substr(1, ar.length-1); 
+    }
+   
 }
 
 
@@ -117,6 +133,21 @@ const PokerRank = {
 
 function getPokerHandRank(hand) {
     throw new Error('Not implemented');
+    /* let arr=text.split(' '); let s=0, l=0;
+    for(let i=0; i<arr.length; i++){
+        s=0;
+        l=i;
+        while(s+(arr[i]).length<=columns && i<text.length){
+            s+=(arr[i]).length+1;
+            i++;
+        }
+        s--;
+        let ar='';
+        for(l; l<=i; l++){
+            ar=ar+' '+text[l];
+        }
+        yield ar.substr(1, ar.length-1); 
+    } */
 }
 
 

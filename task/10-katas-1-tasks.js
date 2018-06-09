@@ -88,6 +88,7 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
+    throw new Error('Not implemented');
     let i=0, j=0, ok=0;
     let arr=Array(n).fill(Array(n).fill(0));
     for(let s=0; s<=2*(n-1); s++){
@@ -158,7 +159,37 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    let s='', p=nums[0], l=0, ctrl=0;
+    for(let i=1; i<nums.length;){
+            ctrl=0;
+            while(p+1===nums[i]){
+                ctrl++;
+                p++;
+                i++;
+                if(i===nums.length && ctrl>=2){s=s+`${nums[l]}-${nums[i-1]},`; return s.slice(0, s.length-1);}
+                else if(i===nums.length){
+                    for(l; l<i; l++){
+                        s=s+`${nums[l]},`;
+                    }
+                    return s.slice(0, s.length-1);
+                }
+            }
+            if(ctrl<2){
+                for(l; l<i; l++){
+                    s=s+`${nums[l]},`;
+                }
+                l=i;
+                i++;
+                p=nums[i-1];
+            }
+            else{
+                s=s+`${nums[l]}-${nums[i-1]},`
+                l=i;
+                p=nums[i];
+                i++;
+            }
+    }
+    return s.slice(0, s.length-1);
 }
 
 module.exports = {
