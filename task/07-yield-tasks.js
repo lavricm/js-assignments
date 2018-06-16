@@ -111,7 +111,7 @@ function* depthTraversalTree(root) {
             }
         }
     }
-}
+} 
 
 
 
@@ -137,7 +137,15 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let arr=[root];
+    for(let node of arr){
+        yield node;
+        if(node.children != undefined){
+            for(let child of node.children){
+                arr.push(child); 
+            }   
+        }
+    }
 }
 
 
