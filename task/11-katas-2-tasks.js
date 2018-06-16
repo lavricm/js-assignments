@@ -133,21 +133,15 @@ const PokerRank = {
 
 function getPokerHandRank(hand) {
     throw new Error('Not implemented');
-    /* let arr=text.split(' '); let s=0, l=0;
-    for(let i=0; i<arr.length; i++){
-        s=0;
-        l=i;
-        while(s+(arr[i]).length<=columns && i<text.length){
-            s+=(arr[i]).length+1;
-            i++;
-        }
-        s--;
-        let ar='';
-        for(l; l<=i; l++){
-            ar=ar+' '+text[l];
-        }
-        yield ar.substr(1, ar.length-1); 
-    } */
+    let arr=['2', '3', '4', '5', '6', '7', '8', '10', 'J', 'Q', 'K', 'A'];
+    hand.sort((a,b)=>(arr.indexOf(a.slice(0, a.length-1))-arr.indexOf(b.slice(0, b.length-1))));
+    function c(x){
+        return x.slice(0, x.length-1);
+    }
+    function m(x){
+        return x[x.length-1];
+    }
+
 }
 
 

@@ -88,9 +88,8 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
     let i=0, j=0, ok=0;
-    let arr=Array(n).fill(Array(n).fill(0));
+    let arr=Array(n).fill([]).map(()=>Array(n).fill(0));
     for(let s=0; s<=2*(n-1); s++){
         if(s%2===0){
             i=Math.min(s, n-1);

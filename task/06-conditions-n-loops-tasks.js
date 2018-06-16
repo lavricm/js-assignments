@@ -289,19 +289,24 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
-    let p=-1, ans=0;
-    while(ccn!=0){
-        let i=ccn%10;
-        p++;
-        if(p%2!=0) i=(i*2)%9;
-        ans+=i;
-        ccn=Math.floor(ccn/10);
-    }
-    if(ans%10===0) return true;
-    return false;
-}
+    let s=ccn.toString();
+    let sum=0;
+    let id=false;
+    for (let i= s.length-1; i>=0; i--) {
+		let digit=parseInt(s[i]);
 
+		if (id) {
+			if ((digit*=2) > 9) {
+                digit-= 9;
+            }
+		}
+
+		sum += digit;
+		id=!id;
+	}
+
+	return !(sum % 10);
+}
 
 /**
  * Returns the digital root of integer:
@@ -452,7 +457,22 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let m=Number.MAX_SAFE_INTEGER;
+    for(let i=0; i<pathes.length; i++){
+        m=Math.min(m, pathes[i].length);
+    }
+    let i=0, l=-1, ctrl=1;
+    while(i<m && ctrl){
+        for(let j=0; j<pathes.length-1; j++){
+            if(pathes[j][i]!=pathes[j+1][i]) ctrl=0;
+        }
+        if(ctrl){
+            if(pathes[0][i]==='/') l=i;
+            i++;
+        }
+    }
+    if(i===m) return pathes[0].slice(0, m);
+    else return pathes[0].slice(0, l+1);
 }
 
 
