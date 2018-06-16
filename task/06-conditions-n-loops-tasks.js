@@ -293,9 +293,8 @@ function isCreditCardNumber(ccn) {
     let sum=0;
     let id=false;
     for (let i= s.length-1; i>=0; i--) {
-		let digit=parseInt(s[i]);
-
-		if (id) {
+        let digit=parseInt(s[i]);
+        if (id) {
 			if ((digit*=2) > 9) {
                 digit-= 9;
             }
@@ -304,8 +303,7 @@ function isCreditCardNumber(ccn) {
 		sum += digit;
 		id=!id;
 	}
-
-	return !(sum % 10);
+    return !(sum % 10);
 }
 
 /**
@@ -350,22 +348,18 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
-    let a=0, b=0, c=0, d=0;
+    let s=[];
+    let o=['[', '{', '<', '('], c=[']', '}', '>', ')'];
     for(let i=0; i<str.length; i++){
-        if(str[i]==='(') a++;
-        if(str[i]==='(') a--;
-        if(str[i]==='[') b++;
-        if(str[i]===']') b--;
-        if(str[i]==='{') c++;
-        if(str[i]==='}') c--;
-        if(str[i]==='<') d++;
-        if(str[i]==='>') d--;
-        if(a<0 || b<0 || c<0 || d<0) return false;
+        if(o.indexOf(str[i])>=0){
+            s.push(o.indexOf(str[i]));
+        }
+        else if(c.indexOf(str[i])!=s.pop()){
+            return false;
+        }
     }
-    if(a!=0 || b!=0 || c!=0 || d!=0) return false;
-    return true;
-}
+    return (s.length==0);
+} 
 
 
 /**
@@ -495,7 +489,16 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let mtrx = [];
+    for(let i = 0; i<m1.length; i++) {
+        mtrx[i]=[];
+        for (let j=0; j<m2[i].length; j++) {
+            mtrx[i][j]=0;
+            for (let k=0; k<m1[i].length; k++)
+            mtrx[i][j]+=m1[i][k]*m2[k][j];
+        }
+    }
+    return mtrx;
 }
 
 
