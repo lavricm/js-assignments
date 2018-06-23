@@ -17,8 +17,35 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    let sides = ['N','E','S','W'];  
+    let arr=[], d=11.25, cnt=-1;
+    function cp(str){
+        cnt++;
+        return {abbreviation: str,  azimuth: d*cnt};
+    }
+    for(let i=0; i<4; i++){
+        let side1=sides[i], side2=sides[(i+1)%4];
+        arr.push(cp(side1));
+        if (i % 2 == 0){
+            arr.push(cp(side1 + 'b' + side2));
+            arr.push(cp(side1 + side1 + side2));
+            arr.push(cp(side1 + side2 + 'b' + side1));
+            arr.push(cp(side1 + side2));
+            arr.push(cp(side1 + side2 + 'b' + side2));
+            arr.push(cp(side2 + side1 + side2));
+            arr.push(cp(side2 + 'b' + side1));
+        }
+        else {
+            arr.push(cp(side1 + 'b' + side2));
+            arr.push(cp(side1 + side2 + side1));
+            arr.push(cp(side2 + side1 + 'b' + side1));
+            arr.push(cp(side2 + side1));
+            arr.push(cp(side2 + side1 + 'b' + side2));
+            arr.push(cp(side2 + side2 + side1));
+            arr.push(cp(side2 + 'b' + side1));
+        }
+    } return arr;
+    // use array of cardinal directions only!
 }
 
 
@@ -56,8 +83,23 @@ function createCompassPoints() {
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-    throw new Error('Not implemented');
+    let stack = [], prnt = [];
+    let regExpr = /\{([^{}]+)\}/;
+    stack.push(str); 
+    while (stack.length > 0){
+        let curr = stack.pop();
+        let match = curr.match(regExpr);
+        if (match){
+            let subStr = match[1].split(",");
+            subStr.forEach((value) => {stack.push(curr.replace(match[0], value));});
+        }
+        else if (prnt.indexOf(curr) == -1) {
+            prnt.push(curr);
+            yield curr;
+        }
+    }
 }
+
 
 
 /**
@@ -134,9 +176,49 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
-}
+    let count = new Array(7).fill(0);
+    dominoes.forEach(element => {
+        if (element[0] == element[1]){
+            if (count[element[0]] != 0){
+                count[element[0]] += 2;
+            }
+            else {
+                count[element[0]] += 0.5;
+            }
+        }
+        else {
+            for (let i = 0; i < 2; i++){
+                if (count[element[i]] % 1 != 0){
+                    count[element[i]] += 0.5;
+                }
+                else {
+                    count[element[i]]++;
+                }
+            }
+        }
+    });
+    let countOnes = count.reduce((prev, curr) => prev + curr % 2, 0);
+    return (countOnes % 2 != 0 || countOnes > 2) ? false : true;
+    /* throw new Error('Not implemented');
+    let rez=[[]];
+    rez[0]=dominoes.shift();
+    let ctrl=0;
+    while(ctrl!=dominoes.length && dominoes.length>0){
+        for(let i=0; i<dominoes.length; i++){
+            if(dominoes[i][0]===rez[rez.length-1][0] ){
+                rez[rez.length]=dominoes[i].reverse();
+                dominoes.splice(i, 1);
+            }
+            else if(dominoes[i][1]===rez[rez.length-1][0]){
+                rez[rez.length]=dominoes[i];
+                dominoes.splice(i, 1);
+            }
+        }
+        ctrl=dominoes.length;
+    }
+    return (dominoes.length===0); */
 
+}      
 
 /**
  * Returns the string expression of the specified ordered list of integers.
